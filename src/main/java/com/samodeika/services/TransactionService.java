@@ -18,7 +18,23 @@ public class TransactionService {
 	public TransactionService() throws SQLException {
 		this.connection = DriverManager.getConnection(this.url, this.username,
 				this.password);
+
+		this.connection.setAutoCommit(false);
+
 		this.tr = new TransactionDAO();
+	}
+
+	public void commit() throws SQLException {
+		this.connection.commit();
+	}
+
+	public void rollback() {
+		try {
+			this.connection.rollback();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void closeConnection() {

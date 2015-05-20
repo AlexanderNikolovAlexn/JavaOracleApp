@@ -32,6 +32,8 @@ public class TransactionDAO implements GenericCRUD<Transaction> {
 			id = rs.getInt(1);
 		}
 
+		rs.close();
+		
 		return id;
 	}
 
@@ -51,6 +53,8 @@ public class TransactionDAO implements GenericCRUD<Transaction> {
 			throw new SQLDataException("No data found");
 		}
 
+		rs.close();
+		
 		return tr;
 	}
 

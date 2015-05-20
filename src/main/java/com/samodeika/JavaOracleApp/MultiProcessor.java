@@ -16,7 +16,7 @@ public class MultiProcessor implements Runnable {
 	}
 	
 	public void run() {
-		System.out.println("Starting: " + id);
+		// System.out.println("Starting: " + id);
 		
 
 		TransactionService tr = null;
@@ -35,21 +35,21 @@ public class MultiProcessor implements Runnable {
 			Transaction newTrans = new Transaction(0, newTime, amount);
 
 			tr = new TransactionService();
-
+			
 			int id = tr.createTransaction(newTrans);
 
-			System.out.println("Id is " + id);
-
-			Transaction trans = tr.getTransaction(id);
-
-			System.out.println(trans);
+			tr.commit();
 			
-			Thread.sleep(5000);
+			// System.out.println("Id is " + id);
+
+			// Transaction trans = tr.getTransaction(id);
+
+			// System.out.println(trans);
+			
+			//Thread.sleep(5000);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		catch (InterruptedException e){
+			tr.rollback();
 			e.printStackTrace();
 		}
 		finally {
@@ -58,7 +58,7 @@ public class MultiProcessor implements Runnable {
 			}
 		}
 		
-		System.out.println("Completed: " + id);
+		// System.out.println("Completed: " + id);
 	}
 	
 }
